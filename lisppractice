@@ -1,0 +1,111 @@
+(list 1 2 3)         
+'(1 2 (3 4 5)(6 (7)))   # list
+'(+ 1 2 3)      #list
+(car '(1 2 3))
+(cdr '(1 2 3))  #content of decreement register
+(cdr '(42))   #rutirns nil 
+(car '(4))    #contet of address register
+(null nil)    #returns t = true
+(null '())    #returns t = true
+(cons 1 '())  #contruct lists using cons yeilds (1)
+(cons 1 '(2 3)) #add an element to existing list returns (1 2 3)
+(cons 1 (cons 2 (cons 3 '()))) #add an element to existing list returns (1 2 3)
+(append '(1 2) '(3 4)) #append function can append a list to another
+(cons 1 2)  #the dot representation is used if the second argument is not empty
+# can not give more than 2 arguments cons (CAR CDR) 
+some-foo-list  # error because  in REPL session, some-foo-list is not defined
+(set 'some-list '(1 2 3))
+some-list   #defined so ruturns (1 2 3)
+(setq some-list '(1 2 3))   #q is macro
+some-list          # defined in a easier way so ruturns (1 2 3)
+
+
+ #a is defined 1 and b is defined with value 5 then add them.
+(let ((a 1)
+      (b 5))
+  (+ a b))
+
+
+# if you just type the letter a in the buffer and try to evaluate it, you should get an error (void-variable a) Because the scope of a is inside the (let (...) (+ a b)) expression
+a
+
+# a is 3, then b is assigned 8, and the result of the expression is 11
+(let* ((a 3)
+       (b (+ a 5)))
+  (+ a b))
+
+# functions
+(defun say-hello ()
+  "Hello, World!")
+
+
+(defun square (x)
+  (* x x))
+(square 2)
+(square "Weird!") # You get a run-time error
+
+(and t "" 0 7)  #returns last truthly value 7
+
+(or nil "foo" '() "bar") #returns first truthly value foo
+
+(when (= (+ 2 2) 4) 
+  "Passed sanity check!")
+
+(defun evens-or-odds (n)
+   (if (= 0 (% n 2))
+       "Even!"
+     "Odd!"))     
+#first load the function to the REPL by using C-x C-e 
+(evens-or-odds 4)
+
+(defun pick-a-word (n)
+   (cond
+    ((= n 1) "One")
+    ((= n 2) "Two")
+    ((= n 3) "Three")
+    (t "42")))
+
+(pick-a-word 2)   # returns two
+(pick-a-word 100)  #Gives the universal answer 42
+
+(defun factorial (n)
+   (if (< n 1)
+       1
+     (* n (factorial (- n 1)))))
+
+(factorial 5) #returns 120,octal and hexadecimal values of 120 are also returned
+
+(lambda (x) (* x x x)) # pretty-symbols-mode where lambda can be replaced with λ
+((lambda (x) (* x x x)) 5) #returns 125
+
+(funcall '+ 1 2) #returns 3
+
+(fset 'cube (lambda (x) (* x x x)))
+(cube 4) #returns 64
+
+(defun transform-unless-zero (fn n)
+   (if (= n 0)
+       0
+     (funcall fn n)))
+
+(transform-unless-zero (lambda (n) (+ 1 n)) 0) #returns 0
+(transform-unless-zero (lambda (n) (+ 1 n)) 7) #returns 8
+
+(mapcar (lambda (n) (+ 1 n)) '(1 2 3 4)) #returns (2 3 4 5)
+
+
+(setq our-list '(1 2 3 4))
+(mapcar (lambda (n) (+ 1 n)) '(1 2 3 4)) #assinging a list to our-list
+
+# calling the 'upcase function on each element in the list
+(mapcar 'upcase '("a" "b" "c")
+
+
+#Using the defmacro keyword you are defining inc which takes an argument
+(defmacro inc (x)
+  (list 'setq x (list '1+ x)))
+
+(1+ 2)
+
+# when you have a macro, the steps are like, Read Lisp code,
+# expand macro code, evaluate, print and wait again for more Lisp code
